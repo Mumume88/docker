@@ -1,0 +1,13 @@
+FROM ubuntu
+ENV TZ=Europe/Moscow
+WORKDIR /srv/app/
+COPY web.py /srv/app/
+COPY web.conf /srv/app/conf/
+RUN apt -y update &&\
+    apt -y install python3 libpq-dev &&\
+    apt -y install python3-pip &&\
+    pip3 install flask &&\
+    pip3 install psycopg2 &&\
+    pip3 install configparser &&\
+    env pip_root_user_acton=ignore
+CMD [ "python3" , "web.py" ]
